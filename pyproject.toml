@@ -1,0 +1,66 @@
+[project]
+name = "mcp-doc-generator"
+version = "0.1.0"
+description = "MCP server for intelligent codebase documentation with Mermaid diagrams"
+readme = {file = "README.md", content-type = "text/markdown"}
+requires-python = ">= 3.10"
+dependencies = [
+    "mcp>=1.2.0",
+    "gitingest>=0.3.0",
+    "anthropic>=0.40.0",
+    "openai>=1.50.0",
+    "pydantic>=2.0.0",
+    "tiktoken>=0.7.0",
+    "pathspec>=0.12.1",
+    "click>=8.0.0",
+    "loguru>=0.7.0",
+    "python-dotenv>=1.0.0",
+    "httpx>=0.25.0",
+]
+
+license = {text = "MIT"}
+authors = [{ name = "Vedant" }]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit",
+    "pytest",
+    "pytest-asyncio",
+    "pytest-mock",
+    "ruff",
+]
+
+[project.scripts]
+mcp-doc-generator = "mcp_doc_generator.__main__:main"
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = {find = {where = ["src"]}}
+include-package-data = true
+
+[tool.ruff]
+line-length = 119
+fix = true
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "C4", "SIM"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests/"]
+python_files = "test_*.py"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
